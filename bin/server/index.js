@@ -1,13 +1,16 @@
-"use strict";
+/* eslint-disable no-unused-expressions */
 
-var _path = _interopRequireDefault(require("path"));
+/* eslint-disable no-undef */
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+/* eslint-disable no-unused-vars */
 
+/* eslint-disable no-console */
+
+/* eslint-disable prefer-arrow-callback */
 require("rootpath")();
 
-const express = require("express");
-
+import path from "path";
+import express from "express";
 const app = express();
 
 const cors = require("cors");
@@ -23,15 +26,18 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.use(cors());
-app.use(express.static(_path.default.resolve(__dirname, "../../bin/client")));
-app.use(jwt());
+app.use(express.static(path.resolve(__dirname, "../../bin/client"))); // use JWT auth t<o secure the api
+
+app.use(jwt()); // / api routes
+
 app.use("/users", require("./users/users.controller"));
 app.use("/gamer", require("./gamer/gamer.controller"));
 app.use("/trees", require("./trees/trees.controller"));
-app.use("/algo", require("./algo/algo.controller"));
-app.use(errorHandler);
-const {
-  APP_PORT
-} = process.env;
+app.use("/algo", require("./algo/algo.controller")); // global error handler
+
+app.use(errorHandler); //app.use(jwt());
+// start server
+
+const APP_PORT = process.env.PORT;
 app.listen(APP_PORT, () => console.log(`🚀 Server is listening on port ${APP_PORT}.`));
 //# sourceMappingURL=index.js.map

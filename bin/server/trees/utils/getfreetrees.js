@@ -1,5 +1,12 @@
-"use strict";
+/* eslint-disable prefer-arrow-callback */
 
+/* eslint-disable no-shadow */
+
+/* eslint-disable no-inner-declarations */
+
+/* eslint-disable no-console */
+
+/* eslint-disable no-unused-vars */
 const db = require("../_helpers/db");
 
 const {
@@ -20,7 +27,7 @@ function newUserFunction(getPlayerId, getFreeTrees, pseudoPlayer, colorPlayer) {
 
   if (freeTreesNumber > 10) {
     const getRandomInt = max => {
-      getRandomTreeNumber = Math.floor(Math.random() * Math.floor(max));
+      getRandomTreeNumber = Math.floor(Math.random() * Math.floor(max)); //console.log(getRandomTreeNumber);
 
       if (i === 0) {
         randomTrees.push(getRandomTreeNumber);
@@ -33,12 +40,14 @@ function newUserFunction(getPlayerId, getFreeTrees, pseudoPlayer, colorPlayer) {
 
     for (i = 0; i < 3; i++) {
       getRandomInt(freeTreesNumber);
-    }
+    } //console.log(randomTrees);
+
 
     if (i === 3) {
       for (let index = 0; index < 3; index++) {
         getRandomTrees.push(freeTrees[randomTrees[index]]);
-      }
+      } //console.log(getRandomTrees);
+
 
       async function addFreeTreesToNewPlayers(treeArray) {
         try {
@@ -60,7 +69,9 @@ function newUserFunction(getPlayerId, getFreeTrees, pseudoPlayer, colorPlayer) {
     }
   } else {
     console.log("Il n'y a plus assez d'abres disponnible pour un nouveau joueur désolé...");
-  }
+  } //console.log(getRandomTrees);
+  //module.exports = getRandomTrees;
+
 }
 
 module.exports = newUserFunction;

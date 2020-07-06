@@ -1,21 +1,30 @@
-"use strict";
-
+/* eslint-disable no-console */
 const db = require("../_helpers/db");
 
-const Trees = db.Trees;
+const Trees = db.Trees; //const User = db.User;
 
 const newUserFunction = require("../algo/getfreetrees");
 
-const otherPlayerPrice = require("../otherplayerprice");
+const otherPlayerPrice = require("../otherplayerprice"); //const userService = require("../users/user.service");
+//const {createIndexes} = require("./trees.model");
+// Récupération de l'ensemble des arbres
+
 
 async function getAllTrees(req, res) {
   try {
-    const trees = await Trees.find();
+    const trees = await Trees.find(); // console.log(trees);
+
     res.json(trees);
   } catch (error) {
     res.send(error.response.data.message);
   }
 }
+/* async function getCurrent(req, res) {
+    const momo = await current.getCurrent();
+    res.json(momo);
+} */
+// Recupération de l'id d'un joueur et envois des arbres correspondant
+
 
 async function getIdPlayer(req, res) {
   try {
@@ -44,7 +53,8 @@ async function newPlayerTreesGenerator(req, res) {
   } catch (error) {
     res.send(error);
   }
-}
+} // lat: 5ece7015b467be4c63b04e4a
+
 
 async function buyOtherPlayerTree(req, res) {
   try {

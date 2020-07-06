@@ -1,10 +1,12 @@
-"use strict";
+/* eslint-disable no-confusing-arrow */
 
+/* eslint-disable no-use-before-define */
 const express = require("express");
 
 const router = express.Router();
 
-const userService = require("./user.service");
+const userService = require("./user.service"); // routes
+
 
 router.post("/authenticate", authenticate);
 router.post("/register", register);

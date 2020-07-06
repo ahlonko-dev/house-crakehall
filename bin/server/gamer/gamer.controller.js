@@ -1,10 +1,13 @@
-"use strict";
+/* eslint-disable no-confusing-arrow */
 
+/* eslint-disable no-use-before-define */
 const express = require("express");
 
 const router = express.Router();
 
-const gamerService = require("./gamer.service");
+const gamerService = require("./gamer.service"); // routes
+//router.post("/authenticate", authenticate);
+
 
 router.post("/add", add);
 router.get("/", getAll);
@@ -13,6 +16,18 @@ router.get("/:id", getById);
 router.put("/:id", update);
 router.delete("/:id", _delete);
 module.exports = router;
+/* function authenticate(req, res, next) {
+    gamerService
+        .authenticate(req.body)
+        .then(gamer =>
+            gamer
+                ? res.json(gamer)
+                : res
+                      .status(400)
+                      .json({message: "pseudo or password is incorrect"}),
+        )
+        .catch(err => next(err));
+} */
 
 function add(req, res, next) {
   gamerService.create(req.body).then(() => res.json({})).catch(err => next(err));

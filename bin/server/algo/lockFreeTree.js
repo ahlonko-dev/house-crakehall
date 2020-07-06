@@ -1,5 +1,3 @@
-"use strict";
-
 const {
   object
 } = require("prop-types");
@@ -15,7 +13,8 @@ const lockFreeTree = (idPlayer, getTreeToLock, allTrees) => {
     lat: getTreeToLock.geoloc.lat,
     lon: getTreeToLock.geoloc.lon
   };
-  const radius = 100;
+  const radius = 100; // meters
+
   allTrees.forEach(element => {
     const isTreeInRadius = insideCircle({
       lat: element.geoloc.lat,

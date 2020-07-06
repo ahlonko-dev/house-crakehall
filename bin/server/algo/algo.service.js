@@ -1,5 +1,8 @@
-"use strict";
+/* eslint-disable array-callback-return */
 
+/* eslint-disable no-console */
+
+/* eslint-disable no-use-before-define */
 const db = require("../_helpers/db");
 
 const Arbustum = db.Arbustum;
@@ -7,7 +10,7 @@ const User = db.User;
 module.exports = {
   getMoneyById,
   updateConnectionDate
-};
+}; //update connectDate
 
 async function updateConnectionDate(id) {
   try {
@@ -20,21 +23,24 @@ async function updateConnectionDate(id) {
   } catch (error) {
     console.log(error);
   }
-}
+} //get money for current user
+
 
 async function getMoneyById(id) {
   try {
     const user = await User.findById(id);
-    const id_player = user._id;
+    const id_player = user._id; //console.log("test1", id_player);
+
     let cashes = 0;
     cashes = await getMoney(id_player);
     user.money = cashes;
     await user.save();
-    return cashes;
+    return cashes; //facultaif
   } catch (error) {
     return error;
   }
-}
+} // calcul money
+
 
 async function getMoney(id_player) {
   try {

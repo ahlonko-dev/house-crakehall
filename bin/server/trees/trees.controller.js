@@ -1,5 +1,4 @@
-"use strict";
-
+/* eslint-disable no-unused-vars */
 const express = require("express");
 
 const router = express.Router();
@@ -10,7 +9,8 @@ const userService = require("../users/user.service");
 
 const {
   User
-} = require("../_helpers/db");
+} = require("../_helpers/db"); //const {RuleTester} = require("eslint");
+
 
 router.get("/alltrees", treeService.getAllTrees);
 router.get("/:getidplayer", treeService.getIdPlayer);

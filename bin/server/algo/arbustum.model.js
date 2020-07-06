@@ -1,8 +1,7 @@
-"use strict";
-
 const mongoose = require("mongoose");
 
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema; //const ObjectId = Schema.Types.ObjectId;
+
 const schema = new Schema({
   nom_complet: {
     type: String
@@ -27,6 +26,7 @@ const schema = new Schema({
   circonf: {
     type: Number
   },
+  //player_id: [{type: ObjectId}],
   player_id: {
     type: Schema.Types.ObjectId
   },
@@ -52,6 +52,23 @@ const schema = new Schema({
     type: String
   }
 });
+/* const schema = new Schema({
+    y_lambert72: {type: Number},
+    arbotag: {type: Number},
+    date_donnees: {type: Date},
+    x_lambda: {type: Number},
+    geoloc: {
+        lat: {type: Number},
+        lon: {type: Number},
+    },
+    hauteur_totale: {type: Number},
+    x_lambert72: {type: Number},
+    y_phi: {type: Number},
+    nom_complet: {type: String},
+    diametre_cime: {type: Number},
+    circonf: {type: Number},
+}); */
+
 schema.set("toJSON", {
   virtuals: true,
   versionKey: false,

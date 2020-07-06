@@ -1,6 +1,8 @@
-"use strict";
+/* eslint-disable consistent-return */
 
-const expressJwt = require("express-jwt");
+/* eslint-disable no-use-before-define */
+const expressJwt = require("express-jwt"); //const config = require("./config.json");
+
 
 const userService = require("../users/user.service");
 
@@ -14,12 +16,13 @@ function jwt() {
   }, {
     expiresIn: "60"
   }).unless({
-    path: ["/users/authenticate", "/users/register", "/hello", "/"]
+    path: [// public routes that don"t require authentication
+    "/users/authenticate", "/users/register", "/hello", "/"]
   });
 }
 
 async function isRevoked(req, payload, done) {
-  const user = await userService.getById(payload.sub);
+  const user = await userService.getById(payload.sub); // revoke token if user no longer exists
 
   if (!user) {
     return done(null, true);

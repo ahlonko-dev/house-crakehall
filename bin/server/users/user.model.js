@@ -1,8 +1,7 @@
-"use strict";
-
 const mongoose = require("mongoose");
 
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema; //const ObjectId = Schema.Types.ObjectId;
+
 const schema = new Schema({
   pseudo: {
     type: String,
@@ -40,7 +39,8 @@ const schema = new Schema({
     type: Date,
     default: Date.now
   }
-});
+}); // c'est quoi ce bout de code
+
 schema.set("toJSON", {
   virtuals: true,
   versionKey: false,

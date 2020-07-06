@@ -1,34 +1,21 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _mongoose = require("mongoose");
-
-var _double = _interopRequireDefault(require("@mongoosejs/double"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const ArbustnumSchema = new _mongoose.Schema({
-  y_lambert72: _double.default,
+/* eslint-disable unicorn/filename-case */
+import { Schema, model } from "mongoose";
+import Double from "@mongoosejs/double";
+const ArbustnumSchema = new Schema({
+  y_lambert72: Double,
   arbotag: Number,
   date_donnees: Date,
-  x_lambda: _double.default,
+  x_lambda: Double,
   geoloc: {
-    lat: _double.default,
-    lon: _double.default
+    lat: Double,
+    lon: Double
   },
-  hauteur_totale: _double.default,
-  x_lambert72: _double.default,
-  y_phi: _double.default,
+  hauteur_totale: Double,
+  x_lambert72: Double,
+  y_phi: Double,
   nom_complet: String,
   diametre_cime: Number,
   circonf: Number
 });
-
-var _default = (0, _mongoose.model)("arbresliege", ArbustnumSchema);
-
-exports.default = _default;
+export default model("arbresliege", ArbustnumSchema);
 //# sourceMappingURL=Arbustum.js.map

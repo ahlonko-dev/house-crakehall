@@ -1,11 +1,16 @@
-"use strict";
+/* eslint-disable require-atomic-updates */
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+/* eslint-disable no-console */
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+/* eslint-disable no-throw-literal */
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+/* eslint-disable no-return-await */
 
+/* eslint-disable no-sync */
+
+/* eslint-disable consistent-return */
+
+/* eslint-disable no-use-before-define */
 const jwt = require("jsonwebtoken");
 
 const bcrypt = require("bcryptjs");
@@ -13,7 +18,8 @@ const bcrypt = require("bcryptjs");
 const db = require("../_helpers/db");
 
 const User = db.User;
-const secret = "THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING";
+const secret = "THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING"; //const algoService = require("./algo.service");
+//import("../global");
 
 const treeService = require("../trees/trees.service");
 
@@ -32,7 +38,8 @@ async function authenticate({
   pseudo,
   password
 }) {
-  let status = false;
+  let status = false; //status connexion
+
   const user = await User.findOne({
     pseudo
   });
@@ -42,12 +49,15 @@ async function authenticate({
       sub: user.id
     }, secret);
     status = true;
-    user.status = status;
-    await user.save();
+    user.status = status; //change status true
+
+    await user.save(); //save change
+    //to upDate dateConnect
+
     algoService.updateConnectionDate(user._id);
-    return _objectSpread(_objectSpread({}, user.toJSON()), {}, {
+    return { ...user.toJSON(),
       token
-    });
+    };
   }
 }
 
@@ -60,13 +70,14 @@ async function getById(id) {
 }
 
 async function create(userParam) {
+  // validate
   if (await User.findOne({
     pseudo: userParam.pseudo
   })) {
     throw `pseudo "${userParam.pseudo}" is already taken`;
   }
 
-  const user = new User(userParam);
+  const user = new User(userParam); // hash password
 
   if (userParam.password) {
     user.hash = bcrypt.hashSync(userParam.password, 10);
@@ -75,7 +86,7 @@ async function create(userParam) {
   await user.save();
   const findIdPlayer = await findUserId(user.pseudo);
   await treeService.newPlayerTreesGenerator(findIdPlayer);
-  await algoService.getMoneyById(findIdPlayer);
+  await algoService.getMoneyById(findIdPlayer); //generate money for new user
 }
 
 async function findUserId(playerPseudo) {
@@ -91,21 +102,24 @@ async function findUserId(playerPseudo) {
 }
 
 async function update(id, userParam) {
-  const user = await User.findById(id);
+  const user = await User.findById(id); // validate
 
   if (!user) {
     throw "User not found";
   }
 
-  if (user.pseudo !== userParam.pseudo && (await User.findOne({
+  if (user.pseudo !== userParam.pseudo && ( // eslint-disable-next-line prettier/prettier
+  await User.findOne({
     pseudo: userParam.pseudo
   }))) {
     throw `pseudo "${userParam.pseudo}" is already taken`;
-  }
+  } // hash password if it was entered
+
 
   if (userParam.password) {
     userParam.hash = bcrypt.hashSync(userParam.password, 10);
-  }
+  } // copy userParam properties to user
+
 
   Object.assign(user, userParam);
   await user.save();
