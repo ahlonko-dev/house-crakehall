@@ -5,7 +5,7 @@
 /* eslint-disable prefer-arrow-callback */
 require("rootpath")();
 import path from "path";
-const express = require("express");
+import express from "express";
 const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
