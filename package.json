@@ -5,7 +5,6 @@
   "author": "leny <leny@becode.org>",
   "license": "MIT",
   "private": true,
-  "type":"module",
   "main": "webpack.config.js",
   "scripts": {
     "lint": "npx eslint --fix --cache --ignore-pattern 'docs/*' src",
